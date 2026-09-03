@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技术支持 - DaoKits</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f7f8fa;
+    --bg-card: #ffffff;
+    --bg-hover: #f3f4f6;
+    --text: #1a1d23;
+    --text-2: #6b7280;
+    --text-3: #9ca3af;
+    --border: #e5e7eb;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .page { flex: 1; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex; align-items: center;
+    padding: 0 32px;
+  }
+  .nav-logo {
+    font-size: 18px; font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+    margin-right: 48px; color: var(--text);
+  }
+  .nav-logo:hover { text-decoration: none; }
+  .nav-logo-d {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--accent), #06b6d4);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px; font-weight: 800;
+  }
+  .nav-links { display: flex; gap: 32px; font-size: 14px; margin-left: auto; }
+  .nav-links a { color: var(--text-2); }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .nav-links a.active { color: var(--text); font-weight: 600; }
+  .nav-right { margin-left: auto; }
+  .nav-download {
+    padding: 8px 20px; background: var(--accent);
+    color: #fff; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+  }
+
+  .page {
+    padding: 120px 32px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .page-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .page-head h1 {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .page-head p {
+    font-size: 18px;
+    color: var(--text-2);
+  }
+
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 72px;
+  }
+  .channel-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .channel-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(37,99,235,0.1);
+  }
+  .channel-icon {
+    width: 52px; height: 52px;
+    background: var(--accent-light);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    margin: 0 auto 16px;
+  }
+  .channel-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .channel-card p {
+    font-size: 13px;
+    color: var(--text-2);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .channel-link {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .faq-section { margin-bottom: 72px; }
+  .faq-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+    padding: 0 24px;
+  }
+  .faq-item:first-child { border-radius: 12px 12px 0 0; }
+  .faq-item:last-child { border-radius: 0 0 12px 12px; border-bottom: none; }
+  .faq-q {
+    padding: 20px 0;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text);
+  }
+  .faq-q::after {
+    content: '+';
+    font-size: 22px;
+    color: var(--text-3);
+    font-weight: 300;
+    transition: transform 0.3s;
+  }
+  .faq-item.open .faq-q::after {
+    transform: rotate(45deg);
+  }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s, padding 0.3s;
+    font-size: 15px;
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+  .faq-item.open .faq-a {
+    max-height: 300px;
+    padding-bottom: 20px;
+  }
+
+  .contact {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 48px;
+    text-align: center;
+  }
+  .contact h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .contact p {
+    font-size: 16px;
+    color: var(--text-2);
+    margin-bottom: 32px;
+  }
+  .contact-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .contact-btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .contact-btn.fill { background: var(--accent); color: #fff; }
+  .contact-btn.fill:hover { opacity: 0.9; text-decoration: none; }
+  .contact-btn.outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .contact-btn.outline:hover { background: var(--accent-light); text-decoration: none; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 32px;
+    color: var(--text-3);
+    font-size: 12px;
+    text-align: center;
+    background: var(--bg-card);
+  }
+  .footer-links {
+    display: flex; gap: 28px;
+    justify-content: center;
+    margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .footer-links a { color: var(--text-2); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .page-head h1 { font-size: 36px; }
+    .channel-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo.png" style="width:28px;height:28px;border-radius:7px;">DaoKits</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="docs.html">文档</a>
+    <a href="download.html">下载</a>
+    <a href="support.html" class="active">技术支持</a>
+  </div>
+
+</nav>
+
+<section class="page">
+  <div class="page-head">
+    <h1>技术支持</h1>
+    <p>我们随时为您提供帮助</p>
+  </div>
+
+  <div class="channel-grid">
+    <div class="channel-card">
+      <div class="channel-icon">👤</div>
+      <h3>作者主页</h3>
+      <p>访问作者主页，了解更多作品和项目。</p>
+      <a href="https://www.daomak.com" target="_blank" class="channel-link">访问主页 →</a>
+    </div>
+    <div class="channel-card">
+      <div class="channel-icon">🐛</div>
+      <h3>问题反馈</h3>
+      <p>在 GitHub 提交 Issue，报告 Bug 或提出功能建议。</p>
+      <a href="https://github.com/Daomak/daokits/issues" target="_blank" class="channel-link">提交 Issue →</a>
+    </div>
+    <div class="channel-card">
+      <div class="channel-icon">📧</div>
+      <h3>邮箱联系</h3>
+      <p>通过邮件与我们联系，反馈问题或提出建议。</p>
+      <a href="mailto:daomak@qq.com" class="channel-link">发送邮件 →</a>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <h2>常见问题</h2>
+    <div class="faq-item">
+      <div class="faq-q">软件无法启动怎么办？</div>
+      <div class="faq-a">请确保操作系统为 Windows 10 或更高版本的 64 位系统。如果被杀毒软件拦截，请添加信任或关闭实时防护后重试。也可以尝试右键以管理员身份运行。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">硬件信息显示不全或不准确？</div>
+      <div class="faq-a">部分硬件信息需要管理员权限才能读取，请右键以管理员身份运行。如果仍有问题，请在 GitHub 提交 Issue 并附上您的硬件配置信息，我们会尽快修复。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">更新失败怎么办？</div>
+      <div class="faq-a">可以手动到下载页面下载最新版本，覆盖解压到原目录即可。如果自动更新持续失败，请检查网络连接，或尝试切换下载线路（GitHub / Gitee）。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">软件会上传我的硬件信息吗？</div>
+      <div class="faq-a">不会。所有硬件检测均在本地完成，数据不上传任何服务器。软件仅在检查更新时连接 GitHub/Gitee 获取版本信息，不收集任何用户数据。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">如何完全卸载软件？</div>
+      <div class="faq-a">由于 DaoKits 是绿色软件，直接删除整个软件文件夹即可完全卸载，不会在系统中留下注册表项或其他残留文件。也可以运行文件夹中的 uninstaller.exe 进行卸载。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">支持哪些操作系统？</div>
+      <div class="faq-a">目前支持 Windows 10 和 Windows 11 的 64 位系统。暂不支持 32 位系统和 macOS/Linux 系统。</div>
+    </div>
+  </div>
+
+
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">首页</a>
+    <a href="docs.html">文档</a>
+    <a href="download.html">下载</a>
+    <a href="support.html">技术支持</a>
+  </div>
+  Copyright © 2026 Daomak. DaoKits 一站式集成工具箱.
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      q.parentElement.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>

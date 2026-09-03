@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DaoKits - 一站式集成工具箱</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f7f8fa;
+    --bg-card: #ffffff;
+    --bg-hover: #f3f4f6;
+    --text: #1a1d23;
+    --text-2: #6b7280;
+    --text-3: #9ca3af;
+    --border: #e5e7eb;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --accent-2: #06b6d4;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  body > section { flex: 1; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, pre { font-family: "SF Mono", "Fira Code", Consolas, monospace; }
+
+  /* 导航 */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex; align-items: center;
+    padding: 0 32px;
+  }
+  .nav-logo {
+    font-size: 18px; font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+    margin-right: 48px; color: var(--text);
+  }
+  .nav-logo:hover { text-decoration: none; }
+  .nav-logo-d {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px; font-weight: 800;
+  }
+  .nav-links { display: flex; gap: 32px; font-size: 14px; margin-left: auto; }
+  .nav-links a { color: var(--text-2); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .nav-links a.active { color: var(--text); font-weight: 600; }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+  .nav-github {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--text-2); font-size: 13px;
+  }
+  .nav-github:hover { color: var(--text); text-decoration: none; }
+  .nav-download {
+    padding: 8px 20px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .nav-download:hover { opacity: 0.9; text-decoration: none; }
+
+  /* Hero */
+  .hero {
+    padding: 160px 32px 120px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #eff6ff 0%, var(--bg) 100%);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 600px;
+    background: radial-gradient(ellipse, rgba(37,99,235,0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-size: 72px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+    line-height: 1.1;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .sub {
+    font-size: 21px;
+    color: var(--text-2);
+    max-width: 600px;
+    margin: 0 auto 56px;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: flex; gap: 20px;
+    justify-content: center;
+    margin-bottom: 72px;
+  }
+  .btn {
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+  }
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+    text-decoration: none;
+  }
+  .btn-secondary {
+    background: var(--bg-card);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+
+
+
+
+  /* 特性 */
+  .features {
+    padding: 100px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-head {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-head h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .section-head p {
+    font-size: 17px;
+    color: var(--text-2);
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .f-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    transition: all 0.3s;
+  }
+  .f-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(37,99,235,0.1);
+    transform: translateY(-4px);
+  }
+  .f-icon {
+    width: 44px; height: 44px;
+    background: var(--accent-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .f-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .f-card p {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+
+
+  .code-body .k { color: #c084fc; }
+  .code-body .s { color: #86efac; }
+  .code-body .v { color: #fbbf24; }
+
+
+
+  /* 页脚 */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 32px;
+    color: var(--text-3);
+    font-size: 13px;
+    background: var(--bg-card);
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-links {
+    display: flex; gap: 28px;
+  }
+  .footer-links a { color: var(--text-2); }
+  .footer-links a:hover { color: var(--text); }
+
+  @media (max-width: 768px) {
+    .nav-links, .nav-github { display: none; }
+    .hero h1 { font-size: 40px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .showcase-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo.png" style="width:28px;height:28px;border-radius:7px;">DaoKits</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">首页</a>
+    <a href="docs.html">文档</a>
+    <a href="download.html">下载</a>
+    <a href="support.html">技术支持</a>
+  </div>
+
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+
+    <h1>一站式集成<span class="grad">工具箱</span></h1>
+    <p class="sub">化繁为简的一站式集成工具箱，硬件检测与实用工具集于一身，即开即用，持续进化。</p>
+    <div class="hero-cta">
+      <a href="download.html" class="btn btn-primary">立即下载</a>
+      <a href="docs.html" class="btn btn-secondary">查看文档</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="features">
+  <div class="section-head">
+    <h2>核心特性</h2>
+    <p>专注实用功能，拒绝臃肿复杂</p>
+  </div>
+  <div class="feature-grid">
+    <div class="f-card">
+      <div class="f-icon">🖥️</div>
+      <h3>全面硬件检测</h3>
+      <p>CPU、内存、显卡、主板、磁盘、网络全硬件识别，厂商自动转中文。</p>
+    </div>
+    <div class="f-card">
+      <div class="f-icon">⚙️</div>
+      <h3>系统优化</h3>
+      <p>电源计划管理、响应延迟调优，深度释放系统性能潜力。</p>
+    </div>
+    <div class="f-card">
+      <div class="f-icon">🧩</div>
+      <h3>工具集成</h3>
+      <p>模块化设计，实用工具持续集成，一个软件满足多种需求。</p>
+    </div>
+    <div class="f-card">
+      <div class="f-icon">🔄</div>
+      <h3>双平台更新</h3>
+      <p>GitHub + Gitee 双版本检测，智能选最快线路，一键升级。</p>
+    </div>
+    <div class="f-card">
+      <div class="f-icon">✨</div>
+      <h3>简洁界面</h3>
+      <p>现代化设计语言，操作直观清晰，上手即用无学习成本。</p>
+    </div>
+    <div class="f-card">
+      <div class="f-icon">🔒</div>
+      <h3>隐私安全</h3>
+      <p>全本地运行，数据不上传，开源透明可审计。</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<footer>
+  <div class="footer-inner">
+    <div>© 2026 Daomak. DaoKits 一站式集成工具箱.</div>
+    <div class="footer-links">
+      <a href="index.html">首页</a>
+      <a href="docs.html">文档</a>
+      <a href="download.html">下载</a>
+      <a href="support.html">支持</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

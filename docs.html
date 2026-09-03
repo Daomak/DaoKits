@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文档 - DaoKits</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f7f8fa;
+    --bg-card: #ffffff;
+    --bg-hover: #f3f4f6;
+    --text: #1a1d23;
+    --text-2: #6b7280;
+    --text-3: #9ca3af;
+    --border: #e5e7eb;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .doc-layout { flex: 1; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, pre { font-family: "SF Mono", "Fira Code", Consolas, monospace; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex; align-items: center;
+    padding: 0 32px;
+  }
+  .nav-logo {
+    font-size: 18px; font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+    margin-right: 48px; color: var(--text);
+  }
+  .nav-logo:hover { text-decoration: none; }
+  .nav-logo-d {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--accent), #06b6d4);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px; font-weight: 800;
+  }
+  .nav-links { display: flex; gap: 32px; font-size: 14px; margin-left: auto; }
+  .nav-links a { color: var(--text-2); }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .nav-links a.active { color: var(--text); font-weight: 600; }
+  .nav-right { margin-left: auto; }
+  .nav-download {
+    padding: 8px 20px; background: var(--accent);
+    color: #fff; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+  }
+
+  .doc-layout {
+    display: flex;
+    padding-top: 56px;
+    min-height: 100vh;
+  }
+  .doc-sidebar {
+    width: 260px;
+    background: var(--bg-card);
+    border-right: 1px solid var(--border);
+    padding: 32px 20px;
+    position: fixed;
+    top: 56px; bottom: 0;
+    overflow-y: auto;
+  }
+  .doc-sidebar h3 {
+    font-size: 11px;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    margin-top: 28px;
+    font-weight: 600;
+  }
+  .doc-sidebar h3:first-child { margin-top: 0; }
+  .doc-sidebar a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: var(--text-2);
+    border-radius: 7px;
+    margin-bottom: 2px;
+    transition: all 0.2s;
+  }
+  .doc-sidebar a:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .doc-sidebar a.active {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .doc-content {
+    flex: 1;
+    margin-left: 260px;
+    padding: 48px 60px;
+    max-width: 860px;
+  }
+  .doc-content h1 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .doc-content .lead {
+    font-size: 18px;
+    color: var(--text-2);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  .doc-content h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 48px 0 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    letter-spacing: -0.01em;
+  }
+  .doc-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 32px 0 12px;
+  }
+  .doc-content p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-2);
+    margin-bottom: 16px;
+  }
+  .doc-content ul, .doc-content ol {
+    margin: 16px 0;
+    padding-left: 24px;
+  }
+  .doc-content li {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-2);
+    margin-bottom: 8px;
+  }
+  .doc-content code {
+    background: var(--bg-hover);
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #0369a1;
+    border: 1px solid var(--border);
+  }
+  .doc-content pre {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 20px 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #e2e8f0;
+  }
+  .doc-content pre code {
+    background: none;
+    padding: 0;
+    border: none;
+    color: inherit;
+  }
+  .note {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--text-2);
+  }
+  .note strong { color: var(--accent); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px;
+    color: var(--text-3);
+    font-size: 12px;
+    text-align: center;
+    margin-left: 260px;
+    background: var(--bg-card);
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .doc-sidebar { display: none; }
+    .doc-content { margin-left: 0; padding: 32px 20px; }
+    footer { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="logo.png" style="width:28px;height:28px;border-radius:7px;">DaoKits</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="docs.html" class="active">文档</a>
+    <a href="download.html">下载</a>
+    <a href="support.html">技术支持</a>
+  </div>
+
+</nav>
+
+<div class="doc-layout">
+  <aside class="doc-sidebar">
+    <h3>快速开始</h3>
+    <a href="#intro" class="active">简介</a>
+    <a href="#install">安装与运行</a>
+    <a href="#quickstart">快速上手</a>
+
+    <h3>功能说明</h3>
+    <a href="#system-info">电脑信息</a>
+
+    <a href="#update">自动更新</a>
+    <a href="#about">关于软件</a>
+
+    <h3>高级</h3>
+    <a href="#folder">文件夹结构</a>
+    <a href="#uninstall">卸载说明</a>
+    <a href="#faq">常见问题</a>
+  </aside>
+
+  <main class="doc-content">
+    <h1>文档中心</h1>
+    <p class="lead">了解 DaoKits 的功能特性、使用方法和常见问题。</p>
+
+    <h2 id="intro">简介</h2>
+    <p>DaoKits 是一款化繁为简的一站式集成工具箱，硬件检测与实用工具集于一身，即开即用，持续进化。软件采用模块化设计，功能持续扩展，满足多样化的使用需求。</p>
+    <p>核心特性：</p>
+    <ul>
+      <li>全面硬件检测，厂商名称自动转中文</li>
+      <li>系统性能优化，深度释放硬件潜力</li>
+      <li>模块化工具集成，功能持续扩展</li>
+      <li>GitHub + Gitee 双平台智能更新</li>
+      <li>现代化简洁界面，上手即用</li>
+      <li>全本地运行，数据不上传，隐私安全</li>
+    </ul>
+
+    <h2 id="install">安装与运行</h2>
+    <h3>系统要求</h3>
+    <ul>
+      <li>操作系统：Windows 10 / Windows 11（64 位）</li>
+      <li>运行环境：WebView2 Runtime（Win10/11 通常已预装）</li>
+      <li>网络：可选（仅用于自动更新检测与下载）</li>
+      <li>权限：普通用户即可运行，完整硬件信息建议管理员权限</li>
+    </ul>
+    <h3>运行方式</h3>
+    <p>下载安装程序 <code>installer.exe</code>，双击运行后选择安装位置（或使用默认路径），安装程序会自动下载最新版本并完成安装，同时在桌面创建快捷方式。安装完成后双击桌面快捷方式即可启动。</p>
+    <div class="note">
+      <strong>提示：</strong>建议安装到非系统目录（如 D:\DaoKits），以避免权限问题。
+    </div>
+
+    <h2 id="quickstart">快速上手</h2>
+    <h3>第一步：安装软件</h3>
+    <p>下载 <code>installer.exe</code> 安装程序，双击运行，选择安装位置后等待自动下载并安装完成。</p>
+    <h3>第二步：启动软件</h3>
+    <p>安装完成后，双击桌面快捷方式启动 DaoKits。软件启动时会自动检测硬件信息并显示「电脑信息」页面。</p>
+    <h3>第三步：浏览功能</h3>
+    <p>通过左侧导航栏切换不同功能页面：</p>
+    <ul>
+      <li><strong>电脑信息</strong>：查看硬件与系统详细信息</li>
+      <li><strong>关于软件</strong>：查看版本信息、检查更新</li>
+    </ul>
+    <h3>第四步：保持更新</h3>
+    <p>软件启动时会自动检测新版本，如有更新会在导航栏提示，点击「立即更新」即可一键升级。</p>
+
+    <h2 id="system-info">电脑信息</h2>
+    <p>电脑信息页面展示以下内容：</p>
+    <ul>
+      <li><strong>系统信息</strong>：操作系统名称、版本号、位数、安装日期</li>
+      <li><strong>CPU</strong>：处理器型号、核心线程数、标称频率、虚拟化状态</li>
+      <li><strong>内存</strong>：总容量、类型（DDR4/DDR5）、频率、通道数、插槽数</li>
+      <li><strong>显卡</strong>：显卡型号、显存容量、驱动版本</li>
+      <li><strong>主板与 BIOS</strong>：主板厂商（中文）、型号、BIOS 版本</li>
+      <li><strong>磁盘</strong>：磁盘品牌（中文）、型号、容量、健康状态、寿命剩余</li>
+      <li><strong>网络</strong>：网卡型号（中文）、MAC 地址、连接状态</li>
+    </ul>
+
+
+
+    <h2 id="update">自动更新</h2>
+    <p>DaoKits 支持双平台自动更新：</p>
+    <ol>
+      <li>软件启动时自动检测 GitHub 和 Gitee 两个平台的最新版本</li>
+      <li>取两个平台中较新的版本作为最新版本</li>
+      <li>如有新版本，导航栏「关于软件」按钮显示更新提示</li>
+      <li>点击「立即更新」启动更新程序</li>
+      <li>更新程序自动选择最快下载线路，下载并解压更新</li>
+    </ol>
+    <div class="note">
+      <strong>注意：</strong>更新前请保存好正在进行的工作，更新过程中软件会自动关闭并重启。
+    </div>
+
+    <h2 id="about">关于软件</h2>
+    <p>「关于软件」页面显示：</p>
+    <ul>
+      <li>软件版本号</li>
+      <li>更新时间</li>
+      <li>作者信息（Daomak）</li>
+      <li>官方网站链接</li>
+      <li>检查更新 / 立即更新按钮</li>
+    </ul>
+
+    <h2 id="folder">文件夹结构</h2>
+    <pre><code>Daokits/
+├── DaoKits.exe          # 主程序
+├── updater.exe          # 更新程序
+├── uninstaller.exe      # 卸载程序
+├── installer.exe        # 安装程序
+├── bin/
+│   └── smartctl/
+│       └── smartctl.exe # 硬件检测工具
+└── data/                # 用户数据目录</code></pre>
+
+    <h2 id="uninstall">卸载说明</h2>
+    <p>由于 DaoKits 是绿色软件，卸载非常简单：</p>
+    <ol>
+      <li>关闭正在运行的 DaoKits</li>
+      <li>直接删除整个 DaoKits 文件夹即可</li>
+      <li>也可以运行文件夹中的 <code>uninstaller.exe</code> 进行卸载</li>
+    </ol>
+    <p>软件不会在系统中留下注册表项或其他残留文件。</p>
+
+    <h2 id="faq">常见问题</h2>
+    <h3>Q: 软件无法启动怎么办？</h3>
+    <p>A: 请确保操作系统为 Windows 10 或更高版本的 64 位系统。如果被杀毒软件拦截，请添加信任或关闭实时防护后重试。</p>
+    <h3>Q: 硬件信息显示不全？</h3>
+    <p>A: 部分硬件信息需要管理员权限才能读取，请右键以管理员身份运行。</p>
+    <h3>Q: 更新失败怎么办？</h3>
+    <p>A: 可以手动到<a href="download.html">下载页面</a>下载最新版本，覆盖解压到原目录即可。</p>
+    <h3>Q: 软件会上传我的硬件信息吗？</h3>
+    <p>A: 不会。所有硬件检测均在本地完成，数据不上传任何服务器，保护您的隐私安全。</p>
+  </main>
+</div>
+
+<footer>
+  Copyright © 2026 Daomak. DaoKits 一站式集成工具箱.
+</footer>
+
+</body>
+</html>
