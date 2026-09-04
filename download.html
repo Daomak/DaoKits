@@ -123,10 +123,10 @@
     color: var(--text-2);
   }
   .dl-list {
-    max-width: 640px;
+    max-width: 960px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
   .dl-list-item {
@@ -343,11 +343,22 @@
       </ul>
       <a href="https://gitee.com/daomak/daokits/releases/download/installer/installer.exe" class="dl-list-link">下载</a>
     </div>
+    <div class="dl-list-item">
+      <div style="position:absolute;top:16px;right:16px;padding:4px 10px;background:#fef3c7;color:#d97706;border:1px solid #fde68a;border-radius:12px;font-size:11px;font-weight:600;z-index:1;">非必要</div>
+      <div class="dl-list-icon"><img src="edge.png" alt="WebView2 Runtime" style="width:75%;height:75%;object-fit:contain;"></div>
+      <div class="dl-list-info">
+        <div class="name">WebView2 Runtime</div>
+        <div class="desc">程序运行必备组件，如无法运行请下载安装</div>
+      </div>
+      <ul class="dl-list-features">
+        <li>微软官方运行库</li>
+        <li>Win10/11 通常已自带</li>
+        <li>仅约 2MB 体积</li>
+      </ul>
+      <a href="https://developer.microsoft.com/microsoft-edge/webview2/" target="_blank" class="dl-list-link">下载</a>
+    </div>
 
   </div>
-
-
-
 
 </section>
 
