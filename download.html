@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -285,6 +285,143 @@
     .dl-grid { grid-template-columns: 1fr; }
     .req-grid { grid-template-columns: 1fr; }
   }
+
+/* ========== 响应式适配 - 三端兼容 ========== */
+/* 平板端 */
+@media (max-width: 1024px) {
+  .nav { padding: 0 20px; }
+  .nav-logo { margin-right: 24px; }
+  .nav-links { gap: 20px; }
+  .container, .hero, .features, .section-inner, .doc-layout, .download-container, .support-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .hero-title { font-size: 36px !important; }
+  .hero-subtitle { font-size: 16px !important; }
+  .feature-grid, .card-grid, .download-grid, .support-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+  .doc-sidebar {
+    width: 180px !important;
+    font-size: 13px;
+  }
+}
+
+/* 手机端 */
+@media (max-width: 768px) {
+  .nav {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .nav-logo { font-size: 16px; margin-right: 16px; }
+  .nav-logo-d { width: 24px; height: 24px; font-size: 14px; border-radius: 6px; }
+  .nav-links { display: none !important; }
+  .nav-links a:nth-child(n+4) { display: none; }
+  .nav-download { padding: 6px 14px; font-size: 12px; }
+  .nav-github { display: none; }
+  .nav-menu-btn { display: flex; }
+
+  .container, .hero, .features, .section-inner, .doc-layout, .download-container, .support-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero { padding-top: 80px !important; padding-bottom: 40px !important; }
+  .hero-title { font-size: 28px !important; line-height: 1.3 !important; }
+  .hero-subtitle { font-size: 14px !important; margin-top: 12px !important; }
+  .hero-buttons { flex-direction: column !important; gap: 12px !important; margin-top: 24px !important; }
+  .hero-buttons a, .hero-buttons button { width: 100%; justify-content: center; }
+
+  .section-title { font-size: 24px !important; }
+  .section-subtitle { font-size: 14px !important; }
+
+  .feature-grid, .card-grid, .download-grid, .support-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .feature-card, .info-card, .download-card, .support-card {
+    padding: 20px !important;
+  }
+  .feature-icon { width: 44px !important; height: 44px !important; font-size: 22px !important; }
+  .feature-title { font-size: 16px !important; }
+  .feature-desc { font-size: 13px !important; }
+
+  /* 文档页面 - 侧边栏改顶部横向滚动 */
+  .doc-layout { flex-direction: column !important; }
+  .doc-sidebar {
+    width: 100% !important;
+    position: relative !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 12px 0 !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .doc-sidebar h3 {
+    width: 100%;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .doc-sidebar h3:first-child { margin-top: 0; }
+  .doc-sidebar a {
+    padding: 6px 12px !important;
+    font-size: 12px;
+    border-radius: 6px;
+    background: var(--bg-hover);
+  }
+  .doc-content { padding: 0 !important; }
+  .doc-content h1 { font-size: 24px !important; }
+  .doc-content h2 { font-size: 18px !important; margin-top: 24px !important; }
+  .doc-content h3 { font-size: 15px !important; }
+  .doc-content p, .doc-content li { font-size: 14px !important; }
+
+  /* 下载页面 */
+  .download-main { flex-direction: column !important; }
+  .download-left, .download-right { width: 100% !important; }
+  .download-btn-large { padding: 14px 24px !important; font-size: 15px !important; }
+
+  /* 技术支持页面 */
+  .support-hero { padding: 60px 0 30px !important; }
+  .support-hero h1 { font-size: 28px !important; }
+  .support-hero p { font-size: 14px !important; }
+
+  /* 页脚 */
+  footer { padding: 20px 16px !important; font-size: 12px !important; }
+  .footer-links { flex-wrap: wrap !important; gap: 12px !important; }
+
+  /* 通用间距调整 */
+  section { padding: 40px 0 !important; }
+  .stats-bar { flex-direction: column !important; gap: 12px !important; }
+  .stat-card { padding: 12px !important; }
+}
+
+/* 小屏手机 */
+@media (max-width: 480px) {
+  .nav-links { gap: 12px; font-size: 12px; }
+  .nav-links a:nth-child(n+3) { display: none; }
+  .hero-title { font-size: 24px !important; }
+  .section-title { font-size: 20px !important; }
+  .feature-card, .info-card { padding: 16px !important; }
+}
+</style>
+
+<style>
+/* 隐藏滚动条但保留滚动功能 */
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 </style>
 </head>
 <body>
@@ -297,8 +434,15 @@
     <a href="download.html" class="active">下载</a>
     <a href="support.html">技术支持</a>
   </div>
-
+  <button class="nav-menu-btn" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<!-- 手机端弹出菜单 -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">首页</a>
+  <a href="docs.html">文档</a>
+  <a href="download.html" class="active">下载</a>
+  <a href="support.html">技术支持</a>
+</div>
 
 <section class="page" id="download">
   <div class="page-head">
