@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -208,6 +208,143 @@
     .doc-content { margin-left: 0; padding: 32px 20px; }
     footer { margin-left: 0; }
   }
+
+/* ========== 响应式适配 - 三端兼容 ========== */
+/* 平板端 */
+@media (max-width: 1024px) {
+  .nav { padding: 0 20px; }
+  .nav-logo { margin-right: 24px; }
+  .nav-links { gap: 20px; }
+  .container, .hero, .features, .section-inner, .doc-layout, .download-container, .support-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .hero-title { font-size: 36px !important; }
+  .hero-subtitle { font-size: 16px !important; }
+  .feature-grid, .card-grid, .download-grid, .support-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+  .doc-sidebar {
+    width: 180px !important;
+    font-size: 13px;
+  }
+}
+
+/* 手机端 */
+@media (max-width: 768px) {
+  .nav {
+    padding: 0 16px;
+    height: 52px;
+  }
+  .nav-logo { font-size: 16px; margin-right: 16px; }
+  .nav-logo-d { width: 24px; height: 24px; font-size: 14px; border-radius: 6px; }
+  .nav-links { display: none !important; }
+  .nav-links a:nth-child(n+4) { display: none; }
+  .nav-download { padding: 6px 14px; font-size: 12px; }
+  .nav-github { display: none; }
+  .nav-menu-btn { display: flex; }
+
+  .container, .hero, .features, .section-inner, .doc-layout, .download-container, .support-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero { padding-top: 80px !important; padding-bottom: 40px !important; }
+  .hero-title { font-size: 28px !important; line-height: 1.3 !important; }
+  .hero-subtitle { font-size: 14px !important; margin-top: 12px !important; }
+  .hero-buttons { flex-direction: column !important; gap: 12px !important; margin-top: 24px !important; }
+  .hero-buttons a, .hero-buttons button { width: 100%; justify-content: center; }
+
+  .section-title { font-size: 24px !important; }
+  .section-subtitle { font-size: 14px !important; }
+
+  .feature-grid, .card-grid, .download-grid, .support-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .feature-card, .info-card, .download-card, .support-card {
+    padding: 20px !important;
+  }
+  .feature-icon { width: 44px !important; height: 44px !important; font-size: 22px !important; }
+  .feature-title { font-size: 16px !important; }
+  .feature-desc { font-size: 13px !important; }
+
+  /* 文档页面 - 侧边栏改顶部横向滚动 */
+  .doc-layout { flex-direction: column !important; }
+  .doc-sidebar {
+    width: 100% !important;
+    position: relative !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 12px 0 !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .doc-sidebar h3 {
+    width: 100%;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .doc-sidebar h3:first-child { margin-top: 0; }
+  .doc-sidebar a {
+    padding: 6px 12px !important;
+    font-size: 12px;
+    border-radius: 6px;
+    background: var(--bg-hover);
+  }
+  .doc-content { padding: 0 !important; }
+  .doc-content h1 { font-size: 24px !important; }
+  .doc-content h2 { font-size: 18px !important; margin-top: 24px !important; }
+  .doc-content h3 { font-size: 15px !important; }
+  .doc-content p, .doc-content li { font-size: 14px !important; }
+
+  /* 下载页面 */
+  .download-main { flex-direction: column !important; }
+  .download-left, .download-right { width: 100% !important; }
+  .download-btn-large { padding: 14px 24px !important; font-size: 15px !important; }
+
+  /* 技术支持页面 */
+  .support-hero { padding: 60px 0 30px !important; }
+  .support-hero h1 { font-size: 28px !important; }
+  .support-hero p { font-size: 14px !important; }
+
+  /* 页脚 */
+  footer { padding: 20px 16px !important; font-size: 12px !important; }
+  .footer-links { flex-wrap: wrap !important; gap: 12px !important; }
+
+  /* 通用间距调整 */
+  section { padding: 40px 0 !important; }
+  .stats-bar { flex-direction: column !important; gap: 12px !important; }
+  .stat-card { padding: 12px !important; }
+}
+
+/* 小屏手机 */
+@media (max-width: 480px) {
+  .nav-links { gap: 12px; font-size: 12px; }
+  .nav-links a:nth-child(n+3) { display: none; }
+  .hero-title { font-size: 24px !important; }
+  .section-title { font-size: 20px !important; }
+  .feature-card, .info-card { padding: 16px !important; }
+}
+</style>
+
+<style>
+/* 隐藏滚动条但保留滚动功能 */
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar, *::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 </style>
 </head>
 <body>
@@ -220,8 +357,15 @@
     <a href="download.html">下载</a>
     <a href="support.html">技术支持</a>
   </div>
-
+  <button class="nav-menu-btn" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
+<!-- 手机端弹出菜单 -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">首页</a>
+  <a href="docs.html" class="active">文档</a>
+  <a href="download.html">下载</a>
+  <a href="support.html">技术支持</a>
+</div>
 
 <div class="doc-layout">
   <aside class="doc-sidebar">
@@ -234,11 +378,10 @@
     <a href="#system-info">电脑信息</a>
     <a href="#system-optimize">系统优化</a>
     <a href="#app-store">应用合集</a>
-    <a href="#update">自动更新</a>
     <a href="#about">关于软件</a>
 
-    <h3>高级</h3>
-    <a href="#folder">文件夹结构</a>
+    <h3>程序说明</h3>
+    <a href="#update">自动更新</a>
     <a href="#uninstall">卸载说明</a>
     <a href="#faq">常见问题</a>
   </aside>
@@ -334,6 +477,16 @@
 
 
 
+    <h2 id="about">关于软件</h2>
+    <p>「关于软件」页面显示：</p>
+    <ul>
+      <li>软件版本号</li>
+      <li>更新时间</li>
+      <li>作者信息（Daomak）</li>
+      <li>官方网站链接</li>
+      <li>检查更新 / 立即更新按钮</li>
+    </ul>
+
     <h2 id="update">自动更新</h2>
     <p>DaoKits 支持双平台自动更新：</p>
     <ol>
@@ -346,30 +499,6 @@
     <div class="note">
       <strong>注意：</strong>更新前请保存好正在进行的工作，更新过程中软件会自动关闭并重启。
     </div>
-
-    <h2 id="about">关于软件</h2>
-    <p>「关于软件」页面显示：</p>
-    <ul>
-      <li>软件版本号</li>
-      <li>更新时间</li>
-      <li>作者信息（Daomak）</li>
-      <li>官方网站链接</li>
-      <li>检查更新 / 立即更新按钮</li>
-    </ul>
-
-    <h2 id="folder">文件夹结构</h2>
-    <pre><code>Daokits/
-├── DaoKits.exe          # 主程序
-├── updater.exe          # 更新程序
-├── uninstaller.exe      # 卸载程序
-├── installer.exe        # 安装程序
-├── bin/                 # 子工具目录
-│   ├── DaoPowerplan/    # 电源计划工具
-│   │   └── DaoPowerplan.exe
-│   └── DaoGitAPI/       # Git 仓库管理工具
-│       └── DaoGitAPI.exe
-└── data/                # 用户数据目录
-    └── favorites.json   # 应用合集收藏数据</code></pre>
 
     <h2 id="uninstall">卸载说明</h2>
     <p>由于 DaoKits 是绿色软件，卸载非常简单：</p>
@@ -395,6 +524,39 @@
 <footer>
   Copyright © 2026 Daomak. DaoKits 一站式集成工具箱.
 </footer>
+
+<script>
+// 侧边栏点击滚动到中间位置
+document.querySelectorAll('.doc-sidebar a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href').substring(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      // 滚动到视口中间位置
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // 更新active状态
+      document.querySelectorAll('.doc-sidebar a').forEach(a => a.classList.remove('active'));
+      this.classList.add('active');
+      // 更新URL hash
+      history.pushState(null, '', '#' + targetId);
+    }
+  });
+});
+
+// 页面加载时根据hash滚动到中间
+window.addEventListener('load', function() {
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    const target = document.getElementById(hash);
+    if (target) {
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'auto', block: 'center' });
+      }, 100);
+    }
+  }
+});
+</script>
 
 </body>
 </html>
