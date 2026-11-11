@@ -1,5 +1,5 @@
 cat:聊天社交
-name:微信\intro:国内首选社交工作聊天软件\logo:https://res.wxqcloud.qq.com.cn/t/wx_fed/base/portal/windows/res/assets/logo.ca85d20a32.svg\bit:248\app:https://dldir1v6.qq.com/weixin/Universal/Windows/WeChatWin_4.2.0.exe
+name:微信\intro:国内首选社交工作聊天软件\logo:https://ts4.tc.mm.bing.net/th/id/ODF.BvtHqZTl6qLypPDIASUGoA?w=32&h=32&qlt=91&pcl=fffffa&o=6&pid=1.2\bit:248MB\app:https://dldir1v6.qq.com/weixin/Universal/Windows/WeChatWin_4.2.0.exe
 
 cat:实用工具
-name:腾讯桌面\intro:干净无广告好用的桌面助手\logo:https://guanjia.qq.com/product/zmzl/images/icon_0_1.png\bit:203\app:https://tool.m.qq.com/j/independence/release/deskGo
+name:RAR\intro:强大的压缩文件管理工具\logo:https://ts4.tc.mm.bing.net/th/id/ODF.igVBVbFd3vyW06EAb8fhVw?w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2\bit:307KB\app:https://www.winrar.com.cn/download/winrarcn-1.4.0sc.exe
